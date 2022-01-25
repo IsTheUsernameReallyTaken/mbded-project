@@ -18,7 +18,7 @@ const Chart = (props) => {
       .attr("width", width)
       .attr("height", height)
       .style("background-color", "#d3d3d3")
-      .style("margin-top", "50")
+      .style("margin-top", "20")
       .style("margin-left", "50")
       .style("overflow", "visible");
 

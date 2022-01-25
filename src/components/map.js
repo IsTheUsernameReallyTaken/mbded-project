@@ -1,5 +1,6 @@
 import React from "react";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
+import getDistanceFromLatLonInKm from "./distance";
 
 const style = {
   width: "100%",
@@ -12,11 +13,12 @@ const style = {
 // };
 
 const micu = {
+  id: 1,
   lat: 44.444281738102255,
   lng: 25.976536281058195,
+  distance: 0,
+  visits: 0,
 };
-
-var list = [micu];
 
 function MapComponent(props) {
   const { isLoaded } = useJsApiLoader({
@@ -36,20 +38,18 @@ function MapComponent(props) {
     setMap(null);
   }, []);
 
+  var list = props.data;
+
   return isLoaded ? (
     <GoogleMap
       onClick={(ev) => {
-        // console.log(ev.latLng.lat());
-        // console.log(ev.latLng.lng());
-
         list.push({
           lat: ev.latLng.lat(),
           long: ev.latLng.lng(),
         });
 
-        console.log(list);
-
-        props.function(list);
+        // console.log(list);
+        props.setData(list);
       }}
       mapContainerStyle={style}
       center={micu}
