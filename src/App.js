@@ -5,8 +5,6 @@ import Chart from "./components/chart";
 import getDistanceFromLatLonInKm from "./components/distance";
 
 function App() {
-  const [data1] = useState([{ id: 1, name: "home", distance: 0, visits: 0 }]);
-
   const [data, setData] = useState([]);
   var list = [
     {
@@ -20,9 +18,9 @@ function App() {
 
   return (
     <div>
-      <MapComponent setData={setData} data={data}></MapComponent>
-      <div class="row">
-        <div class="margin">
+      <MapComponent setData={setData} data={data} list={list}></MapComponent>
+      <div className="row">
+        <div className="margin">
           <input
             value="Console log all points"
             type="button"
@@ -30,7 +28,7 @@ function App() {
           ></input>
         </div>
 
-        <div class="margin">
+        <div className="margin">
           <input
             value="Reset all points"
             type="button"
@@ -50,7 +48,7 @@ function App() {
         </div>
       </div>
 
-      <Chart data={data}></Chart>
+      <Chart fullData={data}></Chart>
     </div>
   );
 }

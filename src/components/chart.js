@@ -1,12 +1,18 @@
 import React, { useRef, useEffect, useState } from "react";
 import "./chart.css";
+import "../App.css";
 import * as d3 from "d3";
 
 const Chart = (props) => {
-  var data = props.data;
-  console.log(data);
-  // const [data1] = useState([{ id: 1, name: "home", distance: 0, visits: 0 }]);
-  // const [data] = useState([100, 120, 13, 8, 4, 7, 10, 10, 10, 10, 11]);
+  var fullData = props.fullData;
+
+  // var distances = fullData.map(function (i) {
+  //   return i.distance;
+  // });
+  // distances = distances.slice(1, distances.length);
+
+  var data = fullData;
+
   const svgRef = useRef();
 
   useEffect(() => {
@@ -56,6 +62,13 @@ const Chart = (props) => {
   return (
     <div>
       <svg ref={svgRef}></svg>
+      <div className="margin">
+        <input
+          value="Console distances"
+          type="button"
+          onClick={() => console.log(data)}
+        ></input>
+      </div>
     </div>
   );
 };
