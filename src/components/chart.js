@@ -11,8 +11,7 @@ const Chart = (props) => {
   });
   distances = distances.slice(1, distances.length);
 
-  console.log(distances);
-
+  // console.log(distances);
   var data = distances;
 
   const svgRef = useRef();
@@ -20,7 +19,7 @@ const Chart = (props) => {
   useEffect(() => {
     // setting up svg
     const width = 800;
-    const height = 200;
+    const height = Math.max(300, Math.max.apply(Math, distances));
     const svg = d3
       .select(svgRef.current)
       .attr("width", width)
@@ -59,7 +58,7 @@ const Chart = (props) => {
 
     // setting up data for svg
     svg
-      .selectAll(".line")
+      .selectAll(".bar")
       .data([data])
       .join("path")
       .attr("d", (d) => generateScaledLine(d))

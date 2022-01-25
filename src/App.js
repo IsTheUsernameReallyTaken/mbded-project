@@ -5,7 +5,6 @@ import Chart from "./components/chart";
 import getDistanceFromLatLonInKm from "./components/distance";
 
 function App() {
-  const [data, setData] = useState([]);
   var list = [
     {
       id: 1,
@@ -15,6 +14,8 @@ function App() {
       visits: 0,
     },
   ];
+
+  const [data, setData] = useState(list);
 
   const [plot, setPlot] = useState(false);
   const [plotButton, setPlotButton] = useState("Plot distances");
