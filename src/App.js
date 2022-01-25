@@ -1,23 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useRef, useEffect } from "react";
+import "./App.css";
+import MapComponent from "./components/map";
+import Chart from "./components/chart";
+import getDistanceFromLatLonInKm from "./components/distance";
 
 function App() {
+  const [data1] = useState([{ id: 1, name: "home", distance: 0, visits: 0 }]);
+
+  const [data, setData] = useState([]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <MapComponent function={setData}></MapComponent>
+      <Chart data={data}></Chart>
+      <input type="button" onClick={() => console.log(data)}></input>
     </div>
   );
 }
