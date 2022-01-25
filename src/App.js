@@ -16,6 +16,9 @@ function App() {
     },
   ];
 
+  const [plot, setPlot] = useState(false);
+  const [plotButton, setPlotButton] = useState("Plot distances");
+
   return (
     <div>
       <MapComponent setData={setData} data={data} list={list}></MapComponent>
@@ -24,7 +27,10 @@ function App() {
           <input
             value="Console log all points"
             type="button"
-            onClick={() => console.log(data)}
+            onClick={() => {
+              console.clear();
+              console.log(data);
+            }}
           ></input>
         </div>
 
@@ -46,9 +52,41 @@ function App() {
             }}
           ></input>
         </div>
+
+        <div className="margin">
+          <input
+            value={plotButton}
+            type="button"
+            onClick={() => {
+              if (plot === false) {
+                setPlotButton("Hide plot");
+              } else {
+                setPlotButton("Plot distances");
+              }
+              setPlot(!plot);
+            }}
+          ></input>
+        </div>
+
+        {plot ? (
+          <div className="margin">
+            <input
+              value={"Refresh plot"}
+              type="button"
+              onClick={() => {
+                setPlot(false);
+                setTimeout(() => {
+                  setPlot(true);
+                }, 250);
+              }}
+            ></input>
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
 
-      <Chart fullData={data}></Chart>
+      {plot ? <Chart fullData={data}></Chart> : <></>}
     </div>
   );
 }

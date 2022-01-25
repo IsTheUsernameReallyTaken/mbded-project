@@ -6,12 +6,14 @@ import * as d3 from "d3";
 const Chart = (props) => {
   var fullData = props.fullData;
 
-  // var distances = fullData.map(function (i) {
-  //   return i.distance;
-  // });
-  // distances = distances.slice(1, distances.length);
+  var distances = fullData.map(function (i) {
+    return i.distance;
+  });
+  distances = distances.slice(1, distances.length);
 
-  var data = fullData;
+  console.log(distances);
+
+  var data = distances;
 
   const svgRef = useRef();
 
@@ -46,7 +48,13 @@ const Chart = (props) => {
       .ticks(data.length)
       .tickFormat((i) => i + 1);
     const yAxis = d3.axisLeft(yScale).ticks(5);
-    svg.append("g").call(xAxis).attr("transform", `translate(0, ${height})`);
+    svg
+      .append("g")
+      .call(xAxis)
+      .attr(
+        "transform",
+        `translate(0, ${Math.max(height, Math.max.apply(Math, distances))})`
+      );
     svg.append("g").call(yAxis);
 
     // setting up data for svg
@@ -57,18 +65,24 @@ const Chart = (props) => {
       .attr("d", (d) => generateScaledLine(d))
       .attr("fill", "none")
       .attr("stroke", "black");
-  }, [data]);
+  }, [props.fullData]);
 
   return (
     <div>
       <svg ref={svgRef}></svg>
-      <div className="margin">
-        <input
-          value="Console distances"
-          type="button"
-          onClick={() => console.log(data)}
-        ></input>
-      </div>
+      {false ? (
+        <div className="margin">
+          <input
+            value="Console distances"
+            type="button"
+            onClick={() =>
+              console.log(Math.max(200, Math.max.apply(Math, distances)))
+            }
+          ></input>
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
