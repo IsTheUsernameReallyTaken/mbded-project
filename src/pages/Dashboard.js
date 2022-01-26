@@ -227,6 +227,7 @@ function Dashboard() {
                 },
               ];
               setData(list);
+              setText("");
             }}
           ></input>
         </div>
