@@ -37,7 +37,7 @@ const Fader = ({ text }) => {
         </text>
       </h1>
       <div className={fadeProp.fade}>
-        <Button variant="contained" color="secondary">
+        <Button variant="contained" color="secondary" href="/login">
           Login
         </Button>
       </div>
