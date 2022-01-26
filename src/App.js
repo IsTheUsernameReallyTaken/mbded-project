@@ -96,7 +96,18 @@ function App() {
       </div>
       {plot ? <Chart fullData={data}></Chart> : <></>}
 
-      {/* <Bar></Bar> */}
+      {/* <Bar
+        width="800"
+        height="400"
+        top="20"
+        bottom="20"
+        left="20"
+        right="20"
+        data={data.map(function (i) {
+          console.log(i.distance);
+          return i.distance;
+        })}
+      ></Bar> */}
     </div>
   );
 }
