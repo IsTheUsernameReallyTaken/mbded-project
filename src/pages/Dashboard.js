@@ -237,7 +237,7 @@ function Dashboard() {
             type="button"
             onClick={() => {
               if (plot === false) {
-                setPlotButton("Hide plot");
+                setPlotButton("Hide distances plot");
               } else {
                 setPlotButton("Plot distances");
               }
@@ -246,55 +246,10 @@ function Dashboard() {
           ></input>
         </div>
 
-        <div className="margin">
-          <input
-            value={plotButton1}
-            type="button"
-            onClick={() => {
-              if (plot1 === false) {
-                setPlotButton1("Hide plot");
-              } else {
-                setPlotButton1("Plot ratings");
-              }
-              setPlot1(!plot1);
-            }}
-          ></input>
-        </div>
-
-        <div className="margin">
-          <input
-            value={plotButton2}
-            type="button"
-            onClick={() => {
-              if (plot2 === false) {
-                setPlotButton2("Hide plot");
-              } else {
-                setPlotButton2("Plot popularity");
-              }
-              setPlot2(!plot2);
-            }}
-          ></input>
-        </div>
-
-        <div className="margin">
-          <input
-            value={plotButton3}
-            type="button"
-            onClick={() => {
-              if (plot3 === false) {
-                setPlotButton3("Hide plot");
-              } else {
-                setPlotButton3("Plot places affordability");
-              }
-              setPlot3(!plot3);
-            }}
-          ></input>
-        </div>
-
         {plot ? (
           <div className="margin">
             <input
-              value={"Refresh data and plot"}
+              value={"Refresh distances plot"}
               type="button"
               onClick={() => {
                 setPlot(false);
@@ -307,26 +262,26 @@ function Dashboard() {
         ) : (
           <></>
         )}
-        {plot2 ? (
-          <div className="margin">
-            <input
-              value={"Refresh data and plot"}
-              type="button"
-              onClick={() => {
-                setPlot2(false);
-                setTimeout(() => {
-                  setPlot2(true);
-                }, 250);
-              }}
-            ></input>
-          </div>
-        ) : (
-          <></>
-        )}
+
+        <div className="margin">
+          <input
+            value={plotButton1}
+            type="button"
+            onClick={() => {
+              if (plot1 === false) {
+                setPlotButton1("Hide ratings plot");
+              } else {
+                setPlotButton1("Plot ratings");
+              }
+              setPlot1(!plot1);
+            }}
+          ></input>
+        </div>
+
         {plot1 ? (
           <div className="margin">
             <input
-              value={"Refresh data and plot"}
+              value={"Refresh ratings plot"}
               type="button"
               onClick={() => {
                 setPlot1(false);
@@ -339,10 +294,58 @@ function Dashboard() {
         ) : (
           <></>
         )}
+
+        <div className="margin">
+          <input
+            value={plotButton2}
+            type="button"
+            onClick={() => {
+              if (plot2 === false) {
+                setPlotButton2("Hide popularity plot");
+              } else {
+                setPlotButton2("Plot popularity");
+              }
+              setPlot2(!plot2);
+            }}
+          ></input>
+        </div>
+
+        {plot2 ? (
+          <div className="margin">
+            <input
+              value={"Refresh popularity plot"}
+              type="button"
+              onClick={() => {
+                setPlot2(false);
+                setTimeout(() => {
+                  setPlot2(true);
+                }, 250);
+              }}
+            ></input>
+          </div>
+        ) : (
+          <></>
+        )}
+
+        <div className="margin">
+          <input
+            value={plotButton3}
+            type="button"
+            onClick={() => {
+              if (plot3 === false) {
+                setPlotButton3("Hide affordability plot");
+              } else {
+                setPlotButton3("Plot places affordability");
+              }
+              setPlot3(!plot3);
+            }}
+          ></input>
+        </div>
+
         {plot3 ? (
           <div className="margin">
             <input
-              value={"Refresh data and plot"}
+              value={"Refresh affordability plot"}
               type="button"
               onClick={() => {
                 setPlot3(false);
