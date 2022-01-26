@@ -81,7 +81,19 @@ function MapComponent(props) {
       {/* <Marker position={micu}></Marker> */}
 
       {list.map((punct) => {
-        return <Marker position={{ lat: punct.lat, lng: punct.lng }}></Marker>;
+        return punct.id === 1 ? (
+          <Marker position={{ lat: punct.lat, lng: punct.lng }}></Marker>
+        ) : punct.id % 2 === 0 ? (
+          <Marker
+            position={{ lat: punct.lat, lng: punct.lng }}
+            icon={"http://maps.google.com/mapfiles/ms/icons/blue.png"}
+          ></Marker>
+        ) : (
+          <Marker
+            position={{ lat: punct.lat, lng: punct.lng }}
+            icon={"http://maps.google.com/mapfiles/ms/icons/yellow.png"}
+          ></Marker>
+        );
       })}
 
       <></>

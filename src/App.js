@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import "./App.css";
 import MapComponent from "./components/map";
 import Chart from "./components/chart";
-import getDistanceFromLatLonInKm from "./components/distance";
+import Bar from "./components/bar";
 
 function App() {
   var list = [
@@ -85,9 +85,18 @@ function App() {
         ) : (
           <></>
         )}
-      </div>
 
+        {plot === false ? (
+          <div className="margin">
+            <input value="Plot visits" type="button" onClick={() => {}}></input>
+          </div>
+        ) : (
+          <></>
+        )}
+      </div>
       {plot ? <Chart fullData={data}></Chart> : <></>}
+
+      {/* <Bar></Bar> */}
     </div>
   );
 }

@@ -18,14 +18,14 @@ const Chart = (props) => {
 
   useEffect(() => {
     // setting up svg
-    const width = 800;
+    const width = 1500;
     const height = 500;
     const svg = d3
       .select(svgRef.current)
-      .attr("width", "90%")
+      .attr("width", "95%")
       .attr("height", height)
-      .style("background-color", "#d3d3d3")
-      .style("margin-top", "20")
+      .style("background-color", "#AADAFF")
+      .style("margin-top", "10")
       .style("margin-left", "50")
       .style("overflow", "visible");
 
@@ -33,7 +33,7 @@ const Chart = (props) => {
     const xScale = d3
       .scaleLinear()
       .domain([0, data.length - 1])
-      .range([0, width]);
+      .range([0, 1500]);
     const yScale = d3
       .scaleLinear()
       .domain([0, Math.max(300, Math.max.apply(Math, distances))])
@@ -67,7 +67,7 @@ const Chart = (props) => {
       .attr("d", (d) => generateScaledLine(d))
       .attr("fill", "none")
       .attr("stroke", "black");
-  }, [props.fullData]);
+  }, [fullData]);
 
   return (
     <div>
@@ -87,7 +87,7 @@ const Chart = (props) => {
               value="Console log max distances"
               type="button"
               onClick={() =>
-                console.log(Math.max(200, Math.max.apply(Math, distances)))
+                console.log(Math.max(300, Math.max.apply(Math, distances)))
               }
             ></input>
           </div>
