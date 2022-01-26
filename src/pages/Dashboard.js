@@ -4,7 +4,12 @@ import MapComponent from "../components/map";
 import Chart from "../components/chart";
 import { BarChart, AreaChart, BubbleChart } from "react-charts-d3";
 
+import getDistanceFromLatLonInKm from "../components/distance";
+
 function Dashboard(props) {
+  var micuLat = 44.444281738102255;
+  var micuLng = 25.976536281058195;
+
   var list = [
     {
       id: 1,
@@ -124,6 +129,47 @@ function Dashboard(props) {
       <MapComponent setData={setData} data={data} list={list}></MapComponent>
       <h3 style={{ marginTop: "20px", textAlign: "center" }}>Menu</h3>
       <div className="row">
+        <div className="margin">
+          <input
+            value="Get user and family places"
+            type="button"
+            onClick={() => {
+              // aici vine useEffect
+              // obtinem un json
+              let json = {};
+
+              list = [
+                {
+                  id: 1,
+                  lat: 44.444281738102255,
+                  lng: 25.976536281058195,
+                  distance: 0,
+                  visits: 0,
+                },
+              ];
+
+              json.forEach((place) => {
+                list.append({
+                  id: list.length + 1,
+                  lat: json.lat,
+                  lng: json.lng,
+                  distance: getDistanceFromLatLonInKm(
+                    micuLat,
+                    micuLng,
+                    json.lat,
+                    json.lng
+                  ),
+                  visits: 1,
+                  user_id: json.user_id,
+                });
+              });
+
+              setData(list);
+              setText("");
+            }}
+          ></input>
+        </div>
+
         <div className="margin">
           <input
             value={text.length === 0 ? "Print all points" : "Hide textarea"}
