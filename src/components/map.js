@@ -78,7 +78,12 @@ function MapComponent(props) {
       onLoad={onLoad}
       onUnmount={onUnmount}
     >
-      <Marker position={micu}></Marker>
+      {/* <Marker position={micu}></Marker> */}
+
+      {list.map((punct) => {
+        return <Marker position={{ lat: punct.lat, lng: punct.lng }}></Marker>;
+      })}
+
       <></>
     </GoogleMap>
   ) : (

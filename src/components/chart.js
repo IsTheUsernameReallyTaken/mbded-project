@@ -19,7 +19,7 @@ const Chart = (props) => {
   useEffect(() => {
     // setting up svg
     const width = 800;
-    const height = 300;
+    const height = 500;
     const svg = d3
       .select(svgRef.current)
       .attr("width", "90%")
@@ -73,14 +73,24 @@ const Chart = (props) => {
     <div>
       <svg ref={svgRef}></svg>
       {true ? (
-        <div className="margin">
-          <input
-            value="Console log distances"
-            type="button"
-            onClick={() =>
-              console.log(Math.max(200, Math.max.apply(Math, distances)))
-            }
-          ></input>
+        <div className="row">
+          <div className="margin">
+            <input
+              value="Console log distances"
+              type="button"
+              onClick={() => console.log(distances)}
+            ></input>
+          </div>
+
+          <div className="margin">
+            <input
+              value="Console log max distances"
+              type="button"
+              onClick={() =>
+                console.log(Math.max(200, Math.max.apply(Math, distances)))
+              }
+            ></input>
+          </div>
         </div>
       ) : (
         <></>
