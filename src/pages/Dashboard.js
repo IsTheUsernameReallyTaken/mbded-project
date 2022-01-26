@@ -157,6 +157,8 @@ function Dashboard() {
   const [plot3, setPlot3] = useState(false);
   const [plotButton3, setPlotButton3] = useState("Plot places affordability");
 
+  const [text, setText] = useState("");
+
   return (
     <div>
       <h2 style={{ marginTop: "30px", textAlign: "center" }}>Google Maps</h2>
@@ -165,11 +167,47 @@ function Dashboard() {
       <div className="row">
         <div className="margin">
           <input
-            value="Print all points"
+            value={text.length === 0 ? "Print all points" : "Hide textarea"}
             type="button"
             onClick={() => {
-              console.clear();
-              console.log(data);
+              if (text.length === 0) {
+                let text01 = "";
+
+                data.forEach((punct) => {
+                  if (punct.id === 1) {
+                    text01 =
+                      text01 +
+                      "id: " +
+                      punct.id +
+                      ", lat: " +
+                      punct.lat +
+                      ", lng: " +
+                      punct.lng +
+                      ", distance: " +
+                      punct.distance +
+                      ", visits: " +
+                      punct.visits;
+                  } else {
+                    text01 =
+                      text01 +
+                      "\n" +
+                      "id: " +
+                      punct.id +
+                      ", lat: " +
+                      punct.lat +
+                      ", lng: " +
+                      punct.lng +
+                      ", distance: " +
+                      punct.distance +
+                      ", visits: " +
+                      punct.visits;
+                  }
+                });
+
+                setText(text01);
+                // console.clear();
+                // console.log(data);
+              } else setText("");
             }}
           ></input>
         </div>
@@ -318,6 +356,24 @@ function Dashboard() {
           <></>
         )}
       </div>
+
+      {text.length !== 0 ? (
+        <div style={{ margin: "30px" }}>
+          <textarea
+            style={{
+              resize: "none",
+              width: "95%",
+              height: "300px",
+              fontFamily: "Lucida Console",
+              fontSize: "21px",
+            }}
+            value={text}
+          />
+        </div>
+      ) : (
+        <></>
+      )}
+
       <div style={{ marginBottom: "50px" }}>
         {plot ? <Chart fullData={data}></Chart> : <></>}
         {plot1 ? <BarChart data={data2} /> : <></>}
