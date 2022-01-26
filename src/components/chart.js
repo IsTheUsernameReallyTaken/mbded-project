@@ -81,19 +81,39 @@ const Chart = (props) => {
         <div className="row">
           <div className="margin">
             <input
-              value="Console log distances"
+              value="Print all distances"
               type="button"
-              onClick={() => console.log(distances)}
+              onClick={() => {
+                if (distances.length === 0) {
+                  props.setText(
+                    "No locations besides home - therefore, no distances."
+                  );
+                }
+                // console.log(distances);
+                else props.setText(distances);
+              }}
             ></input>
           </div>
 
           <div className="margin">
             <input
-              value="Console log max distances"
+              value="Print max distance"
               type="button"
-              onClick={() =>
-                console.log(Math.max(300, Math.max.apply(Math, distances)))
-              }
+              onClick={() => {
+                if (distances.length === 0) {
+                  props.setText(
+                    "No locations besides home - therefore, no max distance."
+                  );
+                }
+                // console.log(distances);
+                else
+                  props.setText(
+                    "maximum distance: " +
+                      Math.max.apply(Math, distances) +
+                      " km from home"
+                  );
+                // console.log(Math.max(300, Math.max.apply(Math, distances)));
+              }}
             ></input>
           </div>
         </div>

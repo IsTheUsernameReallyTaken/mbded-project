@@ -378,7 +378,7 @@ function Dashboard() {
       )}
 
       <div style={{ marginBottom: "50px" }}>
-        {plot ? <Chart fullData={data}></Chart> : <></>}
+        {plot ? <Chart fullData={data} setText={setText}></Chart> : <></>}
         {plot1 ? <BarChart data={data2} /> : <></>}
         {plot2 ? <AreaChart data={data1} /> : <></>}
         {plot3 ? <BubbleChart data={data4} /> : <></>}
