@@ -1,10 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "../App.css";
 import MapComponent from "../components/map";
 import Chart from "../components/chart";
 import { BarChart, AreaChart, BubbleChart } from "react-charts-d3";
 
-function Dashboard() {
+function Dashboard(props) {
   var list = [
     {
       id: 1,
@@ -14,6 +14,8 @@ function Dashboard() {
       visits: 0,
     },
   ];
+
+  var email = props.match.params.email;
 
   const [data, setData] = useState(list);
 
@@ -38,63 +40,7 @@ function Dashboard() {
     },
   ];
 
-  const data1 = [
-    {
-      key: "Places ratings",
-      values: [
-        { x: "Place 1", y: 20 },
-        { x: "Place 2", y: 8 },
-        { x: "Place 3", y: 15 },
-        { x: "Place 4", y: 37 },
-        { x: "Place 5", y: 10 },
-        { x: "Place 6", y: 11 },
-        { x: "Place 7", y: 22 },
-        { x: "Place 8", y: 4 },
-        { x: "Place 9", y: 6 },
-        { x: "Place 10", y: 27 },
-        { x: "Place 11", y: 2 },
-        { x: "Place 12", y: 18 },
-        { x: "Place 13", y: 7 },
-      ],
-    },
-    {
-      key: "Average rating",
-      values: [
-        { x: "Place 1", y: 12 },
-        { x: "Place 2", y: 12 },
-        { x: "Place 3", y: 12 },
-        { x: "Place 4", y: 12 },
-        { x: "Place 5", y: 12 },
-        { x: "Place 6", y: 12 },
-        { x: "Place 7", y: 12 },
-        { x: "Place 8", y: 12 },
-        { x: "Place 9", y: 12 },
-        { x: "Place 10", y: 12 },
-        { x: "Place 11", y: 12 },
-        { x: "Place 12", y: 12 },
-        { x: "Place 13", y: 12 },
-      ],
-    },
-  ];
-
   const data3 = [
-    {
-      key: "Group 1",
-      values: [
-        { x: 3, y: 23 },
-        { x: 7, y: 8 },
-      ],
-    },
-    {
-      key: "Group 2",
-      values: [
-        { x: 13, y: 15 },
-        { x: 50, y: 37 },
-      ],
-    },
-  ];
-
-  const data4 = [
     {
       key: "Place 1",
       values: [{ x: 1, y: 10, r: 5 }],
@@ -150,6 +96,7 @@ function Dashboard() {
 
   const [plot1, setPlot1] = useState(false);
   const [plotButton1, setPlotButton1] = useState("Plot ratings");
+  const [data1, setData1] = useState([]);
 
   const [plot2, setPlot2] = useState(false);
   const [plotButton2, setPlotButton2] = useState("Plot popularity");
@@ -158,6 +105,18 @@ function Dashboard() {
   const [plotButton3, setPlotButton3] = useState("Plot places affordability");
 
   const [text, setText] = useState("");
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:5000/places/place-ratings", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: email }),
+    }).then((response) =>
+      response.json().then((json) => {
+        setData1(json);
+      })
+    );
+  }, [email]);
 
   return (
     <div>
@@ -205,8 +164,6 @@ function Dashboard() {
                 });
 
                 setText(text01);
-                // console.clear();
-                // console.log(data);
               } else setText("");
             }}
           ></input>
@@ -380,9 +337,9 @@ function Dashboard() {
 
       <div style={{ marginBottom: "50px" }}>
         {plot ? <Chart fullData={data} setText={setText}></Chart> : <></>}
-        {plot1 ? <BarChart data={data2} /> : <></>}
-        {plot2 ? <AreaChart data={data1} /> : <></>}
-        {plot3 ? <BubbleChart data={data4} /> : <></>}
+        {plot2 ? <BarChart data={data2} /> : <></>}
+        {plot1 ? <AreaChart data={data1} /> : <></>}
+        {plot3 ? <BubbleChart data={data3} /> : <></>}
       </div>
     </div>
   );
