@@ -130,7 +130,34 @@ function Dashboard(props) {
       body: JSON.stringify({ email: email }),
     }).then((response) =>
       response.json().then((json) => {
-        setData(json);
+        list = [
+          {
+            id: 1,
+            lat: 44.444281738102255,
+            lng: 25.976536281058195,
+            distance: 0,
+            visits: 0,
+          },
+        ];
+
+        json.forEach((place) => {
+          list.push({
+            id: list.length + 1,
+            lat: place.lat,
+            lng: place.lng,
+            distance: getDistanceFromLatLonInKm(
+              micuLat,
+              micuLng,
+              place.lat,
+              place.lng
+            ),
+            visits: 1,
+            user_id: place.user_id,
+          });
+        });
+
+        setData(list);
+        setText("");
       })
     );
   }
@@ -146,36 +173,7 @@ function Dashboard(props) {
             value="Get user and family places"
             type="button"
             onClick={() => {
-              list = [
-                {
-                  id: 1,
-                  lat: 44.444281738102255,
-                  lng: 25.976536281058195,
-                  distance: 0,
-                  visits: 0,
-                },
-              ];
-
               familyPlaces();
-
-              list.forEach((place) => {
-                list.push({
-                  id: list.length + 1,
-                  lat: place.lat,
-                  lng: place.lng,
-                  distance: getDistanceFromLatLonInKm(
-                    micuLat,
-                    micuLng,
-                    place.lat,
-                    place.lng
-                  ),
-                  visits: 1,
-                  user_id: place.user_id,
-                });
-              });
-
-              setData(list);
-              setText("");
             }}
           ></input>
         </div>
