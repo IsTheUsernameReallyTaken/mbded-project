@@ -19,10 +19,10 @@ const Chart = (props) => {
   useEffect(() => {
     // setting up svg
     const width = 800;
-    const height = Math.max(300, Math.max.apply(Math, distances));
+    const height = 300;
     const svg = d3
       .select(svgRef.current)
-      .attr("width", width)
+      .attr("width", "90%")
       .attr("height", height)
       .style("background-color", "#d3d3d3")
       .style("margin-top", "20")
@@ -34,12 +34,15 @@ const Chart = (props) => {
       .scaleLinear()
       .domain([0, data.length - 1])
       .range([0, width]);
-    const yScale = d3.scaleLinear().domain([0, height]).range([height, 0]);
+    const yScale = d3
+      .scaleLinear()
+      .domain([0, Math.max(300, Math.max.apply(Math, distances))])
+      .range([height, 0]);
     const generateScaledLine = d3
       .line()
       .x((d, i) => xScale(i))
       .y(yScale)
-      .curve(d3.curveCardinal);
+      .curve(d3.curveStepAfter);
 
     // setting up axis
     const xAxis = d3
@@ -69,10 +72,10 @@ const Chart = (props) => {
   return (
     <div>
       <svg ref={svgRef}></svg>
-      {false ? (
+      {true ? (
         <div className="margin">
           <input
-            value="Console distances"
+            value="Console log distances"
             type="button"
             onClick={() =>
               console.log(Math.max(200, Math.max.apply(Math, distances)))

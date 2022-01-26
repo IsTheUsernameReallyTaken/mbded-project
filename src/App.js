@@ -72,7 +72,7 @@ function App() {
         {plot ? (
           <div className="margin">
             <input
-              value={"Refresh plot"}
+              value={"Refresh data and plot"}
               type="button"
               onClick={() => {
                 setPlot(false);
