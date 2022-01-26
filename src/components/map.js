@@ -1,5 +1,10 @@
 import React from "react";
-import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
+import {
+  GoogleMap,
+  Marker,
+  useJsApiLoader,
+  Polyline,
+} from "@react-google-maps/api";
 import getDistanceFromLatLonInKm from "./distance";
 
 const style = {
@@ -37,6 +42,22 @@ function MapComponent(props) {
   }, []);
 
   var list = props.data;
+
+  const pathCoordinates = [
+    // { lat: 44.444281738102255, lng: 25.976536281058195 },
+    // { lat: 45.444281738102255, lng: 26.976536281058195 },
+  ];
+
+  list.forEach((punct) => {
+    if (punct.id === 1) {
+      return;
+    } else {
+      pathCoordinates.push([
+        { lat: micuLat, lng: micuLng },
+        { lat: punct.lat, lng: punct.lng },
+      ]);
+    }
+  });
 
   return isLoaded ? (
     <GoogleMap
@@ -79,6 +100,44 @@ function MapComponent(props) {
       onUnmount={onUnmount}
     >
       {/* <Marker position={micu}></Marker> */}
+
+      {pathCoordinates.map((linie) => {
+        return (
+          <Polyline
+            path={linie}
+            geodesic={true}
+            options={{
+              strokeColor: "#ff2527",
+              strokeOpacity: 1,
+              strokeWeight: 5,
+              icons: [
+                {
+                  // icon: lineSymbol,
+                  offset: "0",
+                  repeat: "20px",
+                },
+              ],
+            }}
+          />
+        );
+      })}
+
+      {/* <Polyline
+        path={pathCoordinates}
+        geodesic={true}
+        options={{
+          strokeColor: "#ff2527",
+          strokeOpacity: 1,
+          strokeWeight: 3,
+          icons: [
+            {
+              // icon: lineSymbol,
+              offset: "0",
+              repeat: "20px",
+            },
+          ],
+        }}
+      /> */}
 
       {list.map((punct) => {
         return punct.id === 1 ? (

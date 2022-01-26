@@ -56,7 +56,9 @@ const Chart = (props) => {
       .attr(
         "transform",
         `translate(0, ${Math.max(height, Math.max.apply(Math, distances))})`
-      );
+      )
+      .attr("viewbox", "0 0 960 500")
+      .attr("preserveAspectRatio", "xMidYMid meet");
     svg.append("g").call(yAxis);
 
     // setting up data for svg
@@ -66,7 +68,10 @@ const Chart = (props) => {
       .join("path")
       .attr("d", (d) => generateScaledLine(d))
       .attr("fill", "none")
-      .attr("stroke", "black");
+      .attr("stroke", "black")
+      .style("stroke-width", 2.5)
+      .style("stroke-dasharray", "10,3")
+      .style("stroke-linejoin", "round");
   }, [fullData]);
 
   return (
