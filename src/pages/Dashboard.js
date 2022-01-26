@@ -123,6 +123,18 @@ function Dashboard(props) {
     );
   }, [email]);
 
+  function familyPlaces() {
+    fetch("http://127.0.0.1:5000/places/family-places", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: email }),
+    }).then((response) =>
+      response.json().then((json) => {
+        setData(json);
+      })
+    );
+  }
+
   return (
     <div>
       <h2 style={{ marginTop: "30px", textAlign: "center" }}>Google Maps</h2>
@@ -134,10 +146,6 @@ function Dashboard(props) {
             value="Get user and family places"
             type="button"
             onClick={() => {
-              // aici vine useEffect
-              // obtinem un json
-              let json = {};
-
               list = [
                 {
                   id: 1,
@@ -148,19 +156,21 @@ function Dashboard(props) {
                 },
               ];
 
-              json.forEach((place) => {
-                list.append({
+              familyPlaces();
+
+              list.forEach((place) => {
+                list.push({
                   id: list.length + 1,
-                  lat: json.lat,
-                  lng: json.lng,
+                  lat: place.lat,
+                  lng: place.lng,
                   distance: getDistanceFromLatLonInKm(
                     micuLat,
                     micuLng,
-                    json.lat,
-                    json.lng
+                    place.lat,
+                    place.lng
                   ),
                   visits: 1,
-                  user_id: json.user_id,
+                  user_id: place.user_id,
                 });
               });
 
