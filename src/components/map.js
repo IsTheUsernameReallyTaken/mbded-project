@@ -9,7 +9,7 @@ import getDistanceFromLatLonInKm from "./distance";
 
 const style = {
   width: "100%",
-  height: "50vh",
+  height: "70vh",
 };
 
 const micuLat = 44.444281738102255;

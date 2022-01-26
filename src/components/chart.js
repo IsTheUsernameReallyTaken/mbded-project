@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import "./chart.css";
 import "../App.css";
 import * as d3 from "d3";
@@ -24,7 +24,7 @@ const Chart = (props) => {
       .select(svgRef.current)
       .attr("width", "95%")
       .attr("height", height)
-      .style("background-color", "#AADAFF")
+      .style("background-color", "#FFFFFFF")
       .style("margin-top", "10")
       .style("margin-left", "50")
       .style("overflow", "visible");
