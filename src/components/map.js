@@ -142,15 +142,16 @@ function MapComponent(props) {
       {list.map((punct) => {
         return punct.id === 1 ? (
           <Marker position={{ lat: punct.lat, lng: punct.lng }}></Marker>
-        ) : punct.id % 2 === 0 ? (
-          <Marker
-            position={{ lat: punct.lat, lng: punct.lng }}
-            icon={"http://maps.google.com/mapfiles/ms/icons/blue.png"}
-          ></Marker>
         ) : (
           <Marker
             position={{ lat: punct.lat, lng: punct.lng }}
-            icon={"http://maps.google.com/mapfiles/ms/icons/yellow.png"}
+            icon={
+              punct.user_id === 1
+                ? "http://maps.google.com/mapfiles/ms/icons/yellow.png"
+                : punct.user_id === 2
+                ? "http://maps.google.com/mapfiles/ms/icons/blue.png"
+                : "http://maps.google.com/mapfiles/ms/icons/green.png"
+            }
           ></Marker>
         );
       })}
