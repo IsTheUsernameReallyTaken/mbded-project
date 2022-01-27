@@ -24,78 +24,6 @@ function Dashboard(props) {
 
   const [data, setData] = useState(list);
 
-  const data2 = [
-    {
-      key: "My places popularity",
-      values: [
-        { x: "Place 1", y: 23 },
-        { x: "Place 2", y: 8 },
-        { x: "Place 3", y: 15 },
-        { x: "Place 4", y: 37 },
-        { x: "Place 5", y: 8 },
-        { x: "Place 6", y: 15 },
-        { x: "Place 7", y: 37 },
-        { x: "Place 8", y: 8 },
-        { x: "Place 9", y: 15 },
-        { x: "Place 10", y: 37 },
-        { x: "Place 11", y: 8 },
-        { x: "Place 12", y: 15 },
-        { x: "Place 13", y: 37 },
-      ],
-    },
-  ];
-
-  const data3 = [
-    {
-      key: "Place 1",
-      values: [{ x: 1, y: 10, r: 5 }],
-    },
-    {
-      key: "Place 2",
-      values: [{ x: 2, y: 7, r: 3.5 }],
-    },
-    {
-      key: "Place 3",
-      values: [{ x: 3, y: 8, r: 4 }],
-    },
-    {
-      key: "Place 4",
-      values: [{ x: 4, y: 9, r: 4.5 }],
-    },
-    {
-      key: "Place 5",
-      values: [{ x: 5, y: 10, r: 5 }],
-    },
-    {
-      key: "Place 6",
-      values: [{ x: 6, y: 7, r: 3.5 }],
-    },
-    {
-      key: "Place 7",
-      values: [{ x: 7, y: 8, r: 4 }],
-    },
-    {
-      key: "Place 8",
-      values: [{ x: 8, y: 9, r: 4.5 }],
-    },
-    {
-      key: "Place 9",
-      values: [{ x: 9, y: 10, r: 5 }],
-    },
-    {
-      key: "Place 10",
-      values: [{ x: 10, y: 7, r: 3.5 }],
-    },
-    {
-      key: "Place 11",
-      values: [{ x: 11, y: 8, r: 4 }],
-    },
-    {
-      key: "Place 12",
-      values: [{ x: 12, y: 9, r: 4.5 }],
-    },
-  ];
-
   const [plot, setPlot] = useState(false);
   const [plotButton, setPlotButton] = useState("Plot distances");
 
@@ -105,9 +33,11 @@ function Dashboard(props) {
 
   const [plot2, setPlot2] = useState(false);
   const [plotButton2, setPlotButton2] = useState("Plot popularity");
+  const [data2, setData2] = useState([]);
 
   const [plot3, setPlot3] = useState(false);
   const [plotButton3, setPlotButton3] = useState("Plot places affordability");
+  const [data3, setData3] = useState([]);
 
   const [text, setText] = useState("");
 
@@ -119,6 +49,20 @@ function Dashboard(props) {
     }).then((response) =>
       response.json().then((json) => {
         setData1(json);
+      })
+    );
+
+    fetch("http://127.0.0.1:5000/places/popularity")
+      .then((resp) => resp.json())
+      .then((data) => setData2(data));
+
+    fetch("http://127.0.0.1:5000/places/price-level", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: email }),
+    }).then((response) =>
+      response.json().then((json) => {
+        setData3(json);
       })
     );
   }, [email]);
